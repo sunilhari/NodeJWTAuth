@@ -1,0 +1,16 @@
+{
+  "name": "authenticate",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "latest",
+    "body-parser": "latest",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "latest",
+    "jwt-simple": "latest",
+    "mongoose": "latest",
+    "morgan": "latest",
+    "passport": "latest",
+    "passport-jwt": "latest"
+  }
+}
