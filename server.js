@@ -38,18 +38,24 @@ app.use(cookieParser());
 // Use the passport package in our application
 app.use(passport.initialize());
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send(messages.SUCCESS.greet);
 });
 // connect to database
-mongoose.connect(config.database);
+mongoose.createConnection(config.database, function(err) {
+    if (err) {
+        console.log("Failed to Connect to Database due to the following error",err.name,err.message);
+    } else {
+        console.log("Successfully connected to DataBase");
+    }
+});
 
 // pass passport for configuration
 require('./config/passport')(passport);
 
 
 // create a new user account (POST http://localhost:8080/api/signup)
-routes.post('/signup', function (req, res) {
+routes.post('/signup', function(req, res) {
     if (!req.body.name || !req.body.password) {
         res.json({
             success: false,
@@ -61,7 +67,7 @@ routes.post('/signup', function (req, res) {
             password: req.body.password
         });
         // save the user
-        newUser.save(function (err) {
+        newUser.save(function(err) {
             if (err) {
                 return res.json({
                     success: false,
@@ -77,10 +83,10 @@ routes.post('/signup', function (req, res) {
 });
 
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
-routes.post('/authenticate', function (req, res) {
+routes.post('/authenticate', function(req, res) {
     User.findOne({
         name: req.body.name
-    }, function (err, user) {
+    }, function(err, user) {
         if (err) throw err;
         if (!user) {
             res.send({
@@ -89,7 +95,7 @@ routes.post('/authenticate', function (req, res) {
             });
         } else {
             // check if password matches
-            user.comparePassword(req.body.password, function (err, isMatch) {
+            user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch && !err) {
                     // if user is found and password is right create a token
                     var token = jwt.encode(user, config.secret);
@@ -116,24 +122,24 @@ routes.post('/authenticate', function (req, res) {
         }
     });
 });
-routes.get('/info', function (req, res, next) {
-    passport.authenticate('jwt', function (err, user, info) {
+routes.get('/info', function(req, res, next) {
+    passport.authenticate('jwt', function(err, user, info) {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res.json({
                 message: info.message,
-                success:false
+                success: false
             });
         }
         res.json({
             success: true,
             message: user.name + messages.SUCCESS.entryallowed
         });
-    })(req,res,next);
+    })(req, res, next);
 });
-getToken = function (headers) {
+getToken = function(headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
         if (parted.length === 2) {
