@@ -1,16 +1,31 @@
 {
-  "name": "authenticate",
-  "main": "server.js",
-  "dependencies": {
-    "bcrypt": "latest",
-    "body-parser": "latest",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.1",
-    "express": "latest",
-    "jwt-simple": "latest",
-    "mongoose": "latest",
-    "morgan": "latest",
-    "passport": "latest",
-    "passport-jwt": "latest"
-  }
+    "name": "authenticate",
+    "main": "server.js",
+    "dependencies": {
+        "bcrypt": "latest",
+        "body-parser": "latest",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.8.1",
+        "express": "latest",
+        "jwt-simple": "latest",
+        "mongoose": "latest",
+        "morgan": "latest",
+        "passport": "latest",
+        "passport-jwt": "latest"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.6.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-register": "^6.26.0",
+        "mocha": "^3.5.0",
+        "nodemon": "^1.11.0",
+        "supertest": "^3.0.0"
+    },
+    "scripts": {
+        "start": "nodemon dist/server.js --exec babel-node",
+        "build": "babel src -d dist",
+        "serve": "node dist/server.js",
+        "test": "mocha --compilers js:babel-register"
+    }
 }

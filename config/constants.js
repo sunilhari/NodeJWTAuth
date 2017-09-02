@@ -1,4 +1,4 @@
 module.exports = {
-    COOKIE_EXPIRE:1000,
-    COOKIE_NAME:"authorization"
+    COOKIE_EXPIRE: 1000,
+    COOKIE_NAME: "authorization"
 };
