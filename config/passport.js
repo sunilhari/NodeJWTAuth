@@ -16,9 +16,10 @@ module.exports = function(passport) {
     opts.jwtFromRequest = getCookie;
     opts.secretOrKey = config.secret;
     passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+        var user = jwt_payload.user;
         User.findOne({
-            id: jwt_payload.id,
-            name: jwt_payload.name
+            id: user.id,
+            name: user.name
         }, function(err, user) {
             if (err) {
                 return done(err, false);

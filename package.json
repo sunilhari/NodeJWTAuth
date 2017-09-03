@@ -2,7 +2,8 @@
     "name": "authenticate",
     "main": "server.js",
     "dependencies": {
-        "bcrypt": "latest",
+        "bcrypt-nodejs": "0.0.3",
+        "bluebird": "^3.5.0",
         "body-parser": "latest",
         "cookie-parser": "^1.4.3",
         "cors": "^2.8.1",
@@ -11,7 +12,8 @@
         "mongoose": "latest",
         "morgan": "latest",
         "passport": "latest",
-        "passport-jwt": "latest"
+        "passport-jwt": "latest",
+        "uuid": "^3.1.0"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
